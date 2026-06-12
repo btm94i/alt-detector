@@ -1,10 +1,12 @@
 # This example requires the 'members' and 'message_content' privileged intents to function.
 
+import os
 import random
 import sqlite3
 import uuid
 
 import discord
+import dotenv
 from discord.ext import commands
 
 description = """An example bot to showcase the discord.ext.commands extension
@@ -19,6 +21,8 @@ intents.message_content = True
 db = sqlite3.connect("data.db")
 
 bot = commands.Bot(command_prefix="?", description=description, intents=intents)
+
+dotenv.load_dotenv()
 
 
 @bot.event
@@ -112,4 +116,4 @@ async def _bot(ctx):
     await ctx.send("Yes, the bot is cool.")
 
 
-bot.run("***")
+bot.run(str(os.getenv("BOT_TOKEN")))
